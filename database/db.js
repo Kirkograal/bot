@@ -26,7 +26,8 @@ mongoose.connection.once('open', err => {
 	}
 });
 
-console.log(process.env.NODE_IP);
-
 // Try to connect
-mongoose.connect(!process.env.NODE_IP ? process.env.OPENSHIFT_MONGODB_DB_URL : 'mongodb://localhost:27017/bot');
+let url = process.env.NODE_IP ?
+	process.env.OPENSHIFT_MONGODB_DB_URL :
+	config.local_db_url;
+mongoose.connect(url);
